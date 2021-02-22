@@ -44,7 +44,7 @@ Ball.prototype.update = function() {
         this.velX = -(this.velX);
     }
 
-    if ((this.y - this.size) >= height) {
+    if ((this.y + this.size) >= height) {
         this.velY = -(this.velY);
     }
 
@@ -55,3 +55,25 @@ Ball.prototype.update = function() {
     this.x += this.velX;
     this.y += this.velY;
 }
+
+// Creates an empty array of balls
+
+let balls = [];
+
+// While loop that generates random balls until there are 25 of them.
+
+while (balls.length < 25) {
+    let size = random(10,20);
+    let ball = new Ball(
+        random(0 + size, width - size),
+        random(0 + size, height -size),
+        random(-7, 7),
+        random(-7, 7),
+        'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
+        size
+    );
+
+    balls,push(ball);
+
+}
+
