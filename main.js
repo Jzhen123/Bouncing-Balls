@@ -29,7 +29,7 @@ function Ball(x, y, velX, velY, color, size) {
 Ball.prototype.draw = function() {
     ctx.beginPath();
     ctx.fillStyle = this.color;
-    ctx.arc(this.x, this.y, this.size, 0, 2 & Math.PI);
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
 }
 
@@ -62,18 +62,33 @@ let balls = [];
 
 // While loop that generates random balls until there are 25 of them.
 
-while (balls.length < 25) {
+while (balls.length < 5) {
     let size = random(10,20);
     let ball = new Ball(
         random(0 + size, width - size),
-        random(0 + size, height -size),
+        random(0 + size, height - size),
         random(-7, 7),
         random(-7, 7),
         'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
         size
     );
 
-    balls,push(ball);
+    balls.push(ball);
 
 }
 
+// Loop that "animates" a trail behind every ball as it moves
+
+function loop() {
+    ctx.fillStyle = 'rgba(0, 0, 0, .25)'; // Every loop this updates the window with a transparent black wallto create animation effect
+    ctx.fillRect(0, 0, width, height);
+
+    for (let i = 0; i < balls.length; i++) {
+        balls[i].draw();
+        balls[i].update();
+    }
+
+    requestAnimationFrame(loop);
+}
+
+loop();
