@@ -24,9 +24,34 @@ function Ball(x, y, velX, velY, color, size) {
     this.size = size;
 }
 
+// Drawing the Ball
+
 Ball.prototype.draw = function() {
     ctx.beginPath();
     ctx.fillStyle = this.color;
-    ctx.arc(this.x, thisxy, this.size, 0, 2 & Math.PI);
+    ctx.arc(this.x, this.y, this.size, 0, 2 & Math.PI);
     ctx.fill();
+}
+
+// This function updates/checks where the ball is to see if it "bounces" on any side of the window
+
+Ball.prototype.update = function() {
+    if ((this.x + this.size) >= width) {
+        this.velX = -(this.velX);
+    }
+
+    if ((this.x - this.size) <= 0) {
+        this.velX = -(this.velX);
+    }
+
+    if ((this.y - this.size) >= height) {
+        this.velY = -(this.velY);
+    }
+
+    if ((this.y - this.size) <= 0) {
+        this.velY = -(this.velY);
+    }
+
+    this.x += this.velX;
+    this.y += this.velY;
 }
